@@ -1,0 +1,130 @@
+document_analyst_task:
+  description: >
+    Analyze the bid documents for {bidData}
+            
+            Documents to analyze:
+            
+            Extract key information related to:
+            1. Vendor credentials and qualifications
+            2. Compliance with tender requirements
+            3. Technical specifications and methodologies
+            4. Financial details and cost breakdowns
+            5. Project timeline and milestones
+            6. Risk management approaches
+            
+            Use the document analysis tool to read and analyze the content from each document.
+            
+            Provide a comprehensive summary of all key findings from the documents, including 
+            any inconsistencies, missing information, or strengths identified.''',
+  expected_output: >
+    A comprehensive document analysis from {bidData} report including:
+            - Summary of key information from each document
+            - Assessment of document completeness and quality
+            - Key issues or strengths identified in the documentation
+            - Extracted data relevant to bid evaluation
+      Example output:
+      {
+        "score": 85,
+        "report": "The analysis identified key strengths in vendor qualifications and compliance with tender requirements. However, some financial details were incomplete."
+      }
+  agent: document_reader_agent
+  
+initial_screening_task:
+  description: >
+    Conduct initial screening of {bidData} the bid with the following details:
+            - Project Amount:
+            - Project Completion Time: 
+            - Technical Proposal: 
+            - Vendor Experience: 
+            
+            Review the document analysis report from the Document Analyst.
+            
+            Evaluate if the bid meets the basic requirements and calculate initial screening score.
+            Determine if the bid should proceed to further evaluation.
+            
+            Provide a score out of 100 and a detailed report.
+  expected_output: >
+    A detailed report including:
+            - Initial screening score (0-100)
+            - Basic requirements compliance status
+            - Recommendation for further processing
+      Example output:
+      {
+          "score": 75,
+          "report": "The bid meets basic requirements but lacks detailed vendor experience documentation. Recommended for further evaluation."
+      }
+  agent: initial_screening_agent
+
+compliance_task:
+  description: >
+    Conduct a thorough compliance for {bidData} check on the bid with:
+            - Documents reports:
+            
+            Review the document analysis report from the Document Analyst.
+            
+            Verify all legal and organizational compliance requirements.
+            Identify any potential compliance issues.
+            
+            Provide a score out of 100 and a detailed report.
+  expected_output: >
+    A comprehensive compliance report including:
+            - Compliance score (0-100)
+            - Full legal compliance status
+            - Any identified compliance risks
+            - Detailed compliance assessment report
+    Example Output:
+    {
+        "score": 90,
+        "report": "All legal requirements are met. No compliance risks identified."
+    }
+  agent: compliance_agent
+
+risk_assessment_task:
+  description: >
+    Conduct a detailed risk assessment on the bid {bidData} with:
+            - Risk Factors:
+            - Risk Mitigation Plan:
+            
+            Review the document analysis report from the Document Analyst.
+            
+            Identify and assess all potential risks associated with the bid.
+            Evaluate the effectiveness of the risk mitigation plan.
+            
+            Provide a risk assessment score out of 100 and a detailed report.
+  expected_output: >
+    A comprehensive risk assessment report including:
+            - Risk assessment score (0-100)
+            - Identified risks and their severity
+            - Effectiveness of the risk mitigation plan
+            - Detailed risk assessment
+    Example Output:
+    {
+        "score": 70,
+        "report": "Identified risks include potential delays in project timeline. The mitigation plan is adequate but requires more detail."
+    }
+  agent: risk_assessment_agent
+
+award_recommendation_task:
+  description: >
+    Conduct an award recommendation for {bidData} with:
+            - Initial Screening Score: 
+            - Compliance Score: 
+            - Risk Assessment Score: 
+            - Comparative Analysis Score:
+            Review the document analysis report from the Document Analyst.
+            Evaluate the bid based on the scores and provide a final recommendation.
+  expected_output: >
+    Final recommendation report including:
+            - Recommendation score (0-100)
+            - Clear recommendation (yes/no)
+            - Justification for recommendation
+            - Key supporting evidences for recommendation
+    Example Output:
+    {
+        "score": 85,
+        "report": "Clear recommendation (yes/no)
+            - Justification for recommendation
+            - Key supporting evidences for recommendation
+            - Recommended for award due to strong compliance and risk assessment scores, despite some weaknesses in vendor experience."
+    }
+  agent: award_recommendation_agent
